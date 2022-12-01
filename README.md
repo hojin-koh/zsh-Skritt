@@ -14,7 +14,7 @@ main() {
   echo The main script goes here
 }
 
-source "${0:a:h}/deps/hjzscript/go" # where this library is stored
+source "${0:a:h}/deps/Skritt/go" # where this library is stored
 ```
 
 `desc` variable is reserved for the description of the script, which is used in the auto-generated help message
@@ -82,7 +82,7 @@ main() {
   info "opt-1 = $opt_1"
 }
 
-source "${0:a:h}/deps/hjzscript/go" # where this library is stored
+source "${0:a:h}/deps/Skritt/go" # where this library is stored
 ```
 
 `./scriptname.zsh` will give an error, but `./scriptname.zsh --opt-1=5`, `./scriptname.zsh opt-1=5`, or `./scriptname.zsh 5` will assign 5 to `$opt_1`.

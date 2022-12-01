@@ -14,9 +14,9 @@
 
 # Option-related functions
 
-hjzHelpMessage="${desc-}"$'\n'$'\n'
-hjzOpts=()
-hjzRequiredArgs=()
+skrittHelpMessage="${desc-}"$'\n'$'\n'
+skrittOpts=()
+skrittRequiredArgs=()
 
 # The utility to declare an option
 # Usage: opt [-r] <opt-name> <default-value> <description>
@@ -31,12 +31,12 @@ opt() {
   local __nameVar="${__nameVar//./___}"
   local __value="$2"
   local __desc="$3"
-  hjzOpts+=( "$__nameVar" )
+  skrittOpts+=( "$__nameVar" )
   if [[ "$__required" == true ]]; then
-    hjzHelpMessage+="  $__name=$__value"$'\t'"$__desc"$'\n'
-    hjzRequiredArgs+=( "$__nameVar" )
+    skrittHelpMessage+="  $__name=$__value"$'\t'"$__desc"$'\n'
+    skrittRequiredArgs+=( "$__nameVar" )
   else
-    hjzHelpMessage+="  [--]$__name=$__value"$'\t'"$__desc"$'\n'
+    skrittHelpMessage+="  [--]$__name=$__value"$'\t'"$__desc"$'\n'
   fi
   if [[ "$__value" == "("* ]]; then
     declare -ga "$__nameVar"
@@ -48,7 +48,7 @@ opt() {
 }
 
 checkRequiredArgs() {
-  for __var in "${(@)hjzRequiredArgs}"; do
+  for __var in "${(@)skrittRequiredArgs}"; do
     if [[ -z "${(P)__var-}" ]]; then
       if [[ "${1+ok}" == "ok" ]]; then
         eval "$__var='$1'"
@@ -63,7 +63,7 @@ checkRequiredArgs() {
 addHook postparse checkRequiredArgs
 
 SKRITT::HOOK::logOptions() {
-  for __var in "${(@)hjzOpts}"; do
+  for __var in "${(@)skrittOpts}"; do
     if [[ "${(Pt)__var-}" == "array" ]]; then
       debug "option:$__var=(${(P@)__var-})"
     else

@@ -14,18 +14,18 @@
 
 # Filesystem-related functions
 
-hjzTempDir=()
+skrittTempDir=()
 
 # Add temp dir
 putTemp() {
   local VARNAME="$1"
   typeset -g "$VARNAME=$(mktemp -d)"
   info "Generated temp dir: ${(P)VARNAME}"
-  hjzTempDir+=("${(P)VARNAME}")
+  skrittTempDir+=("${(P)VARNAME}")
 }
 
 SKRITT::HOOK::cleanUpTemp() {
-  for pathTmp in "${(@)hjzTempDir}"; do
+  for pathTmp in "${(@)skrittTempDir}"; do
     if [[ "$pathTmp" != /tmp* ]]; then
       continue
     fi

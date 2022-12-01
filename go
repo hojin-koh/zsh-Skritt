@@ -51,22 +51,22 @@ SKRITT::FLOW::preparse "$@"
 source "${0:a:h}/bin/parseopts"
 SKRITT::FLOW::postparse "$@"
 
-hjzNeedToRun=true
+skrittNeedToRun=true
 if declare -f check >/dev/null; then
-  check && hjzNeedToRun=false || hjzNeedToRun=true
+  check && skrittNeedToRun=false || skrittNeedToRun=true
 fi
 
 if [[ "$check" == "true" ]]; then
   unset -f TRAPEXIT
-  if [[ "$hjzNeedToRun" == "true" ]]; then
+  if [[ "$skrittNeedToRun" == "true" ]]; then
     exit 1
   fi
   exit 0
 else
-  if [[ "$hjzNeedToRun" == "true" || "$force" == "true" ]]; then
+  if [[ "$skrittNeedToRun" == "true" || "$force" == "true" ]]; then
     SKRITT::FLOW::prescript "$@"
     main "$@"
   else
-    info "Check passed, no need to run $hjzCommandLineOriginal"
+    info "Check passed, no need to run $skrittCommandLineOriginal"
   fi
 fi

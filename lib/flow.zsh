@@ -60,8 +60,8 @@ SKRITT::FLOW::prescript() {
     setupLog "$logfile" "$logrotate"
   fi
 
-  if [[ -n "${hjzCommandLineOriginal-}" ]]; then
-    info "> Begin $hjzCommandLineOriginal"
+  if [[ -n "${skrittCommandLineOriginal-}" ]]; then
+    info "> Begin $skrittCommandLineOriginal"
   else
     info "> Begin $ZSH_ARGZERO $@"
   fi
