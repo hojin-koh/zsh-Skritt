@@ -65,3 +65,20 @@ promptyn() {
   echo >&5
   printf "[%06.1f] REPLY=%s\n" "$SECONDS" "$REPLY" >&6
 }
+
+showReadableTime() {
+  local __secTotal="$1"
+  local __hours=$[__secTotal/3600]
+  local __minutes=$[(__secTotal%3600)/60]
+  local __seconds=$[__secTotal%60]
+  if [[ $__hours == 0 ]]; then
+    printf "%dm%ds" $__minutes $__seconds
+  else
+    printf "%dh%dm%ds" $__hours $__minutes $__seconds
+  fi
+}
+
+lineProgressBar() {
+  local __max="$1"
+  pv -l -F "%t %b/$__max %p %e" -i 2 -s $__max
+}
