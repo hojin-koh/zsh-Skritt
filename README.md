@@ -5,7 +5,9 @@ A heavily-opinionated and colorful zsh scripting framework. This library is gear
 ## Dependencies
 
 - zsh: obviously.
+- GNU coreutils
 - zstd: for compression of log files. (I did mention this is heavily-opinionated, right?)
+- util-linux(optional): for printing help message with column
 
 ## Installation
 
@@ -75,9 +77,11 @@ The main added functionalities of this library are:
 
 Typing `./scriptname.zsh --help` will display an auto-generated help message, showing available options. If wrong options are given at the command line, the help message will also be displayed along with the error message.
 
-`opt` command declares an option, the usage is: `opt [-r] <opt-name> <default-value> <description>`.
+`opt` command declares an option, the usage is: `opt [-r] [-<group>] <opt-name> <default-value> <description>`.
 
 `-r` means this option is mandatory, and it will be an error if this value is empty. If a required argument is empty, but some positional arguments are given, these positional arguments will be used to fill in the required arguments in order.
+
+`-<group>` specifies the which group this option belongs to. It is mainly used in help messages to group options for easier reading. If not specified, the option will belong to a group with empty name, and will be listed on the top of the help message. You cannot specify "r" as the group name.
 
 `<opt-name>` is the name of the option. This also decides the corresponding variable name. For example, if the option name is `cm-threshold`, then you can specify `--cm-threshold=0.5` or `cm-threshold=0.5` on the command line, and the value will be stored inside a variable named `cm_threshold`. The option-name to variable conversion is as follows (Yes, there might be conflicts if you use consecutive dashes and dots—don't do that):
   - A single dash is converted to one underscore `_`.
