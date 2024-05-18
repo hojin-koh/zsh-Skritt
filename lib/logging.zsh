@@ -46,4 +46,3 @@ rotateLog() {
   done
   zstd -17 -f -o "$fname.1.zst" --rm "$fname" 2>/dev/null
 }
-

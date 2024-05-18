@@ -1,8 +1,27 @@
-# Skritt
+# zsh-Skritt
 
 A heavily-opinionated and colorful zsh scripting framework. This library is geared toward simple scripts that does only one thing per script.
 
-## Basics
+## Dependencies
+
+- zsh: obviously.
+- zstd: for compression of log files. (I did mention this is heavily-opinionated, right?)
+
+## Installation
+
+Just clone this repository down into some subdirectory in your project. I personally prefer to use [git-subrepo](https://github.com/ingydotnet/git-subrepo):
+
+```zsh
+git subrepo clone https://github.com/hojin-koh/zsh-Skritt deps/zsh-Skritt
+```
+
+Or you can also use submodule:
+
+```zsh
+git submodule add https://github.com/hojin-koh/zsh-Skritt deps/zsh-Skritt
+```
+
+## Usage
 
 The basic usage of this framework looks like this, which basically does nothing:
 
@@ -17,9 +36,9 @@ main() {
 source "${0:a:h}/deps/zsh-Skritt/skritt" # where this library is stored
 ```
 
-`desc` variable is reserved for the description of the script, which is used in the auto-generated help message
+`desc` variable is reserved for the description of the script, which is used in the auto-generated help message.
 
-`main` function is the things to be actually run
+`main` function is the things to be actually run.
 
 The output looks like this:
 
@@ -44,19 +63,19 @@ The main added functionalities of this library are:
 
 `info` command outputs bright white info messages with a timestamp, just like the example in the **Basics** section.
 
-`warn` command outputs yellow warning text with a timestamp
+`warn` command outputs yellow warning text with a timestamp.
 
 `err` command outputs red error message with a timestamp and exits. If there's second parameter after the actual message, it will be used as the return value when exiting.
 
-`prompt` command asks user a question, and stores the reply in `$REPLY` variable
+`prompt` command asks user a question, and stores the reply in `$REPLY` variable.
 
-`promptyn` command asks user a yes/no question, and stores the reply in `$REPLY` variable
+`promptyn` command asks user a yes/no question, and stores the reply in `$REPLY` variable.
 
 ### Command-line
 
 Typing `./scriptname.zsh --help` will display an auto-generated help message, showing available options. If wrong options are given at the command line, the help message will also be displayed along with the error message.
 
-`opt` command declares an option, the usage is: `opt [-r] <opt-name> <default-value> <description>`
+`opt` command declares an option, the usage is: `opt [-r] <opt-name> <default-value> <description>`.
 
 `-r` means this option is mandatory, and it will be an error if this value is empty. If a required argument is empty, but some positional arguments are given, these positional arguments will be used to fill in the required arguments in order.
 
