@@ -17,4 +17,4 @@ main() {
   info RUN
 }
 
-source "${0:a:h}/../../go"
+source "${0:a:h}/../../skritt"

@@ -12,4 +12,4 @@ main() {
   ./03.hook.sh
 }
 
-source "${0:a:h}/../../go"
+source "${0:a:h}/../../skritt"

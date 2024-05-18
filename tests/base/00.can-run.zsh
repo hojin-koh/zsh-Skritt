@@ -7,4 +7,4 @@ main() {
   warn "$desc"
 }
 
-source "${0:a:h}/../../go"
+source "${0:a:h}/../../skritt"

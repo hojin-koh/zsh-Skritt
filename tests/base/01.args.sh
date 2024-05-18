@@ -13,4 +13,4 @@ main() {
   test "$opt___3" -eq 17
 }
 
-source "${0:a:h}/../../go"
+source "${0:a:h}/../../skritt"

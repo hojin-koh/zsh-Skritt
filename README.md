@@ -14,7 +14,7 @@ main() {
   echo The main script goes here
 }
 
-source "${0:a:h}/deps/Skritt/go" # where this library is stored
+source "${0:a:h}/deps/zsh-Skritt/skritt" # where this library is stored
 ```
 
 `desc` variable is reserved for the description of the script, which is used in the auto-generated help message
@@ -60,7 +60,7 @@ Typing `./scriptname.zsh --help` will display an auto-generated help message, sh
 
 `-r` means this option is mandatory, and it will be an error if this value is empty. If a required argument is empty, but some positional arguments are given, these positional arguments will be used to fill in the required arguments in order.
 
-`<opt-name>` is the name of the option. This also decides the corresponding variable name. For example, if the option name is `cm-threshold`, then you can specify `--cm-threshold=0.5` or `cm-threshold=0.5` on the command line, and the value will be stored inside a variable named `cm_threshold`. The option-name to variable conversion is as follows (Yes, there might be conflicts if you use consecutive dashes and dots):
+`<opt-name>` is the name of the option. This also decides the corresponding variable name. For example, if the option name is `cm-threshold`, then you can specify `--cm-threshold=0.5` or `cm-threshold=0.5` on the command line, and the value will be stored inside a variable named `cm_threshold`. The option-name to variable conversion is as follows (Yes, there might be conflicts if you use consecutive dashes and dots—don't do that):
   - A single dash is converted to one underscore `_`.
   - A single dot is converted to three understores `___`.
 
@@ -82,7 +82,7 @@ main() {
   info "opt-1 = $opt_1"
 }
 
-source "${0:a:h}/deps/Skritt/go" # where this library is stored
+source "${0:a:h}/deps/zsh-Skritt/skritt" # where this library is stored
 ```
 
 `./scriptname.zsh` will give an error, but `./scriptname.zsh --opt-1=5`, `./scriptname.zsh opt-1=5`, or `./scriptname.zsh 5` will assign 5 to `$opt_1`.

@@ -46,4 +46,4 @@ main() {
   test "${ACCUM[7]}" '==' "prescript1"
 }
 
-source "${0:a:h}/../../go"
+source "${0:a:h}/../../skritt"
