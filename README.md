@@ -27,7 +27,7 @@ The basic usage of this framework looks like this, which basically does nothing:
 
 ```zsh
 #!/usr/bin/env zsh
-desc="Test if a simple script can be run"
+description="Test if a simple script can be run"
 
 main() {
   echo The main script goes here
@@ -36,7 +36,7 @@ main() {
 source "${0:a:h}/deps/zsh-Skritt/skritt" # where this library is stored
 ```
 
-`desc` variable is reserved for the description of the script, which is used in the auto-generated help message.
+`description` variable is reserved for the description of the script, which is used in the auto-generated help message.
 
 `main` function is the things to be actually run.
 
@@ -91,7 +91,7 @@ Typing `./scriptname.zsh --help` will display an auto-generated help message, sh
 
 ```zsh
 #!/usr/bin/env zsh
-desc="Example of argument parsing"
+description="Example of argument parsing"
 
 setupArgs() {
   opt -r opt-1 '' "First Option"
