@@ -17,21 +17,25 @@ typeset -F SECONDS
 opt -Skritt debug false "Whether to show debug messages on screen"
 
 __::outputMessage() {
-  local typ="$1"
-  local color="$2"
-  local msg="$3"
-  local nl="${4-\n}"
-  local t="$SECONDS"
-  printf "\033[%sm[%s-%06.1f] %s\033[m$nl" "$color" "$typ" "$t" "$msg" >&5
-  printf "[%s-%06.1f] %s$nl" "$typ" "$t" "$msg" >&6
+  local __typ="$1"
+  local __color="$2"
+  local __msg="$3"
+  local __nl="${4-\n}"
+  local __t="$SECONDS"
+  printf "\033[%sm[%s-%08.1f] %s\033[m\033[K$__nl" "$__color" "$__typ" "$__t" "$__msg" >&5
+  printf "[%s-%08.1f] %s$__nl" "$__typ" "$__t" "$__msg" >&6
 }
 
 debug() {
   if [[ "${debug-}" == true ]]; then
-    printf "\033[0;34m[D-%06.1f] %s\033[m\n" "$SECONDS" "$1" >&2
+    printf "\033[0;34m[D-%06.1f] %s\033[m\033[K\n" "$SECONDS" "$1" >&2
   else
     printf "[D-%06.1f] %s\n" "$SECONDS" "$1" >&6
   fi
+}
+
+titleinfo() {
+  __::outputMessage T '1;32' "$1"
 }
 
 info() {
