@@ -77,7 +77,7 @@ TRAPEXIT() {
   if [[ "$__rtn" == 0 ]]; then
     titleinfo "< ($(showReadableTime $SECONDS)) End $$ $ZSH_ARGZERO"
   else
-    err "< End with error ($__rtn) $ZSH_ARGZERO"
+    err "< ($(showReadableTime $SECONDS)) End with error ($__rtn) $ZSH_ARGZERO"
   fi
 }
 
