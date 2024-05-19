@@ -84,7 +84,7 @@ checkRequiredArgs() {
     if [[ -z "${(P)__var-}" ]]; then
       if [[ "${1+ok}" == "ok" ]]; then
         eval "$__var='$1'"
-        info "Filled required argument \$$__var with positional argument '$1'"
+        debug "Filled required argument \$$__var with positional argument '$1'"
         shift
       else
         err "Required argument \$$__var not specified" 1
