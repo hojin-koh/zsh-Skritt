@@ -16,7 +16,7 @@
 typeset -F SECONDS
 opt -Skritt debug false "Whether to show debug messages on screen"
 
-__::outputMessage() {
+SKRITT::INTERNAL::outputMessage() {
   local __typ="$1"
   local __color="$2"
   local __msg="$3"
@@ -35,32 +35,32 @@ debug() {
 }
 
 titleinfo() {
-  __::outputMessage T '1;32' "$1"
+  SKRITT::INTERNAL::outputMessage T '1;32' "$1"
 }
 
 info() {
-  __::outputMessage I '1;37' "$1"
+  SKRITT::INTERNAL::outputMessage I '1;37' "$1"
 }
 
 warn() {
-  __::outputMessage W '1;33' "$1"
+  SKRITT::INTERNAL::outputMessage W '1;33' "$1"
 }
 
 err() {
-  __::outputMessage E '1;31' "$1"
+  SKRITT::INTERNAL::outputMessage E '1;31' "$1"
   if [[ "${2-}" -gt 0 ]]; then
     exit $2
   fi
 }
 
 prompt() {
-  __::outputMessage P '1;36' "$1: " ''
+  SKRITT::INTERNAL::outputMessage P '1;36' "$1: " ''
   read -r REPLY || true
   printf "[%06.1f] REPLY=%s\n" "$SECONDS" "$REPLY" >&6
 }
 
 promptyn() {
-  __::outputMessage P '1;33' "$1 (y/n): " ''
+  SKRITT::INTERNAL::outputMessage P '1;33' "$1 (y/n): " ''
   read -q REPLY || true
   echo >&5
   printf "[%06.1f] REPLY=%s\n" "$SECONDS" "$REPLY" >&6
