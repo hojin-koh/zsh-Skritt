@@ -70,8 +70,8 @@ opt() {
 printHelpMessage() {
   local grp
   local var
+  printf "%s\n\n" "${description-}"
   (
-    printf "%s\n\n" "${description-}"
     for grp in "" "${skrittOptGroups[@]}" "Skritt"; do
       if [[ -n "$grp" ]]; then printf "\n%s Options:\n\n" "$grp"; fi
       for var in ${(k)skrittMapOptGroup[(R)$grp]}; do
