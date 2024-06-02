@@ -43,7 +43,7 @@ opt() {
 
   # Write the description of this option
   if [[ "$isRequired" == true ]]; then
-    skrittMapOptDesc[$nameVar]="$nameOpt=(Required)"$'\t'"$descOpt"
+    skrittMapOptDesc[$nameVar]="[Req]$nameOpt=$valueDefault"$'\t'"$descOpt"
     skrittRequiredArgs+=( "$nameVar" )
   else
     skrittMapOptDesc[$nameVar]="[--]$nameOpt=$valueDefault"$'\t'"$descOpt"
