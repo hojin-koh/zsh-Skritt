@@ -75,6 +75,7 @@ else
     main "$@"
     SKRITT::FLOW::postrun "$@"
   else
-    info "Check passed, no need to run $skrittCommandLineOriginal"
+    unset -f TRAPEXIT
+    debug "Check passed, no need to run $skrittCommandLineOriginal"
   fi
 fi
