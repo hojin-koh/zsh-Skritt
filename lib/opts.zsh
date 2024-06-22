@@ -75,10 +75,12 @@ printHelpMessage() {
   (
     for grp in "" "${skrittOptGroups[@]}" "Skritt"; do
       if [[ -n $grp ]]; then printf "\n%s Options:\n\n" "$grp"; fi
-      # [(R)...]: Find all entries in the associative array whose value is $grp. As per zsh doc: "For associative arrays, gives all possible matches"
-      # k: Return keys instead of values in the associative array subscription (the key here is name of config variable)
-      for var in ${(k)skrittMapOptGroup[(R)$grp]}; do
-        printf "  %s\n" "${skrittMapOptDesc[$var]}"
+      # This is less efficient than something like ${(k)skrittMapOptGroup[(R)$grp]},
+      # but doing it this way can ensure the display order is the same as decleration order
+      for var in "${skrittOpts[@]}"; do
+        if [[ ${skrittMapOptGroup[$var]-} == $grp ]]; then
+          printf "  %s\n" "${skrittMapOptDesc[$var]}"
+        fi
       done | if command -v column >/dev/null; then column -ts $'\t'; else cat; fi
     done
   ) >&2
