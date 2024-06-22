@@ -46,9 +46,9 @@ rotateLog() {
   fi
   local i
   for (( i=$[nRotate-1]; i>0; i-- )); do
-    if [[ -f $fname.$i.zst ]]; then
-      mv -f "$fname.$i.zst" "$fname.$[i+1].zst"
+    if [[ -f $fname.$i ]]; then
+      mv -f "$fname.$i" "$fname.$[i+1]"
     fi
   done
-  zstd -17 -f -o "$fname.1.zst" --rm "$fname" 2>/dev/null
+  mv -v "$fname" "$fname.1"
 }

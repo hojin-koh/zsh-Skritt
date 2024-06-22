@@ -79,9 +79,9 @@ printHelpMessage() {
       # k: Return keys instead of values in the associative array subscription (the key here is name of config variable)
       for var in ${(k)skrittMapOptGroup[(R)$grp]}; do
         printf "  %s\n" "${skrittMapOptDesc[$var]}"
-      done
+      done | if command -v column >/dev/null; then column -ts $'\t'; else cat; fi
     done
-  ) | if command -v column >/dev/null; then column -tLs $'\t'; else cat; fi >&2
+  ) >&2
 }
 
 checkRequiredArgs() {
