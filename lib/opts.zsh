@@ -24,45 +24,46 @@ declare -gA skrittMapOptDesc
 # Usage: opt [-r] [-<Group Name>] <opt-name> <default-value> <description>
 opt() {
   local __isRequired=false
-  if [[ "${1-}" == "-r" ]]; then
+  if [[ ${1-} == -r ]]; then
     __isRequired=true
     shift
   fi
   # A group is specified
   local __grpThis=""
-  if [[ "${1-}" == -* ]]; then
-    __grpThis="${1:1}"
+  if [[ ${1-} == -* ]]; then
+    __grpThis=${1:1}
     shift
   fi
-  local __nameOpt="$1"
-  local __nameVar="${__nameOpt//-/_}"
-  local __nameVar="${__nameVar//./___}"
-  local __valueDefault="$2"
-  local __descOpt="$3"
-  skrittOpts+=( "$__nameVar" )
+  local __nameOpt=$1
+  local __nameVar=${__nameOpt//-/_}
+  local __nameVar=${__nameVar//./___}
+  local __valueDefault=$2
+  local __descOpt=$3
+  skrittOpts+=( $__nameVar )
 
   # Write the description of this option
-  if [[ "$__isRequired" == true ]]; then
+  if [[ $__isRequired == true ]]; then
     skrittMapOptDesc[$__nameVar]="[Req]$__nameOpt=$__valueDefault"$'\t'"$__descOpt"
-    skrittRequiredArgs+=( "$__nameVar" )
+    skrittRequiredArgs+=( $__nameVar )
   else
     skrittMapOptDesc[$__nameVar]="[--]$__nameOpt=$__valueDefault"$'\t'"$__descOpt"
   fi
 
   # Take note of group, and add to group list if not yet done
-  skrittMapOptGroup[$__nameVar]="$__grpThis"
+  skrittMapOptGroup[$__nameVar]=$__grpThis
+  # [(i)...]: search for the 1-based index of this element. As per zsh doc: "On failure substitutes the length of the array plus one"
   if [[ ${skrittOptGroups[(i)$__grpThis]} -gt ${#skrittOptGroups} ]]; then
-    if [[ -n "$__grpThis" && "$__grpThis" != "Skritt" ]]; then
-      skrittOptGroups+=( "$__grpThis" )
+    if [[ -n $__grpThis && $__grpThis != Skritt ]]; then
+      skrittOptGroups+=( $__grpThis )
     fi
   fi
 
   # Make the variable and assign it the default value
-  if [[ "$__valueDefault" == "("* ]]; then
-    declare -ga "$__nameVar"
+  if [[ $__valueDefault == \(* ]]; then
+    declare -ga $__nameVar
     eval "$__nameVar=$__valueDefault"
   else
-    declare -g "$__nameVar"
+    declare -g $__nameVar
     eval "$__nameVar='$__valueDefault'"
   fi
 }
@@ -73,7 +74,9 @@ printHelpMessage() {
   printf "%s\n\n" "${description-}"
   (
     for grp in "" "${skrittOptGroups[@]}" "Skritt"; do
-      if [[ -n "$grp" ]]; then printf "\n%s Options:\n\n" "$grp"; fi
+      if [[ -n $grp ]]; then printf "\n%s Options:\n\n" "$grp"; fi
+      # [(R)...]: Find all entries in the associative array whose value is $grp. As per zsh doc: "For associative arrays, gives all possible matches"
+      # k: Return keys instead of values in the associative array subscription (the key here is name of config variable)
       for var in ${(k)skrittMapOptGroup[(R)$grp]}; do
         printf "  %s\n" "${skrittMapOptDesc[$var]}"
       done
@@ -84,8 +87,8 @@ printHelpMessage() {
 checkRequiredArgs() {
   local __var
   for __var in "${(@)skrittRequiredArgs}"; do
-    if [[ -z "${(P)__var-}" ]]; then
-      if [[ "${1+ok}" == "ok" ]]; then
+    if [[ -z ${(P)__var-} ]]; then
+      if [[ ${1+ok} == ok ]]; then
         eval "$__var='$1'"
         debug "Filled required argument \$$__var with positional argument '$1'"
         shift
@@ -100,7 +103,7 @@ addHook postparse checkRequiredArgs
 SKRITT::HOOK::logOptions() {
   local __var
   for __var in "${(@)skrittOpts}"; do
-    if [[ "${(Pt)__var-}" == "array" ]]; then
+    if [[ ${(Pt)__var-} == array ]]; then
       debug "option:$__var=(${(P*)__var-})"
     else
       debug "option:$__var=${(P)__var-}"
