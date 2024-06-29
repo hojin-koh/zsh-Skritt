@@ -12,6 +12,7 @@ main() {
   ./03.hook.sh
   ./04.arrargsempty.sh
   ./04.arrargs.sh --opt.3=16
+  ./05.arrargsclear.sh --opt.3=16 --opt.3= --opt.3=18
 }
 
 source "${0:a:h}/../../skritt"
