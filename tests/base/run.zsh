@@ -10,6 +10,8 @@ main() {
   ./02.check.sh --force true
   ./02.check.sh false
   ./03.hook.sh
+  ./04.arrargsempty.sh
+  ./04.arrargs.sh --opt.3=16
 }
 
 source "${0:a:h}/../../skritt"
