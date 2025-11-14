@@ -44,6 +44,7 @@ if [[ -z ${SKRITT_ROOT_DIR-} ]]; then
   export SKRITT_ROOT_DIR=${0:a:h}
 fi
 
+# Load library functions
 source $SKRITT_ROOT_DIR/lib/flow.zsh
 source $SKRITT_ROOT_DIR/lib/opts.zsh
 source $SKRITT_ROOT_DIR/lib/msg.zsh
@@ -71,7 +72,7 @@ if declare -f check >/dev/null; then
 fi
 
 if [[ $check == true ]]; then
-  unset -f TRAPEXIT
+  unset -f TRAPEXIT # Unregister the "exit" lifecycle since we're not going to run anything now
   if [[ $skrittNeedToRun == true ]]; then
     exit 1
   fi
@@ -82,7 +83,7 @@ else
     main "$@"
     SKRITT::FLOW::postrun "$@"
   else
-    unset -f TRAPEXIT
+    unset -f TRAPEXIT # Unregister the "exit" lifecycle since we're not going to run anything now
     debug "Check passed, no need to run $skrittCommandLineOriginal"
   fi
 fi
