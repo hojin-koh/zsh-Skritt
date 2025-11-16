@@ -15,8 +15,8 @@
 # Logging-related functions
 
 # Default options
-opt -Skritt logfile '' "Log File"
-opt -Skritt logrotate 3 "Number of old log files to keep"
+addOption logfile group=Skritt default= desc="Log File"
+addOption logrotate group=Skritt default=3 desc="Number of old log files to keep"
 
 setupLog() {
   local fname=$1

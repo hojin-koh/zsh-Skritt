@@ -55,8 +55,8 @@ if declare -f skrittLibraryInit >/dev/null; then
   skrittLibraryInit
 fi
 
-opt -Skritt check false "Check whether this script need to run (return false=need)"
-opt -Skritt force false "Always run the script even if there's no need"
+addOption check group=Skritt default=false desc="Check whether this script need to run (return false=need)"
+addOption force group=Skritt default=false desc="Always run the script even if not necessary"
 
 debug "Begin script: $ZSH_ARGZERO $*"
 if declare -f setupArgs >/dev/null; then
